@@ -20,3 +20,14 @@ export const loginMethods = [
   { label: 'Phone Number', value: 'phone' },
   { label: 'Mail ID', value: 'mail' },
 ];
+
+export const validateIdentifier = (method, identifier) => {
+  if (!identifier.trim()) return `Please enter your ${loginMethods.find(m => m.value === method).label}`;
+  if (method === 'phone' && identifier.length !== 10) return 'Phone number must be exactly 10 digits';
+  if (method === 'mail' && !emailRegex.test(identifier)) return 'Valid email format required';
+  if (method === 'username') {
+    const usernameValid = usernameRules.every(rule => rule.test(identifier));
+    if (!usernameValid) return 'Please satisfy all username rules';
+  }
+  return null;
+};

@@ -4,7 +4,7 @@ import InputField from '../../Components/Input_Field/InputField';
 import SubmitButton from '../../Components/Submit_Button/SubmitButton';
 import PasswordCriteria from '../../Components/Password_Criteria/PasswordCriteria';
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
-import { useFormLogic } from '../../Logic/FormLogic';
+import { useFormLogic, validateSignUp } from '../../Logic/FormLogic';
 import { passwordRules, usernameRules, emailRegex } from '../../Logic/ValidationRules';
 import './SignUp.css';
 
@@ -23,38 +23,11 @@ const SignUp = () => {
   const [showUsernameRules, setShowUsernameRules] = useState(false);
 
   const validate = () => {
-    const newErrors = {};
-
-    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
-    
-    if (formData.phone.length !== 10) {
-      newErrors.phone = 'Phone number must be exactly 10 digits';
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Valid email format required';
-    }
-
-    const usernameValid = usernameRules.every(rule => rule.test(formData.username));
-    if (!usernameValid) {
-      newErrors.username = 'Please satisfy all username rules';
-      setShowUsernameRules(true); 
-    }
-
-    const passwordValid = passwordRules.every(rule => rule.test(formData.password));
-    if (!passwordValid) {
-      newErrors.password = 'Please satisfy all password rules';
-      setShowPasswordRules(true); 
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
-
+    const { isValid, newErrors, showUsernameRules, showPasswordRules } = validateSignUp(formData, { usernameRules, passwordRules, emailRegex });
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    if (showUsernameRules) setShowUsernameRules(true);
+    if (showPasswordRules) setShowPasswordRules(true);
+    return isValid;
   };
 
   const handleSubmit = (e) => {

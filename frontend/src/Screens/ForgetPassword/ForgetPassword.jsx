@@ -4,7 +4,7 @@ import SubmitButton from '../../Components/Submit_Button/SubmitButton';
 import CustomDropDown from '../../Components/CustomDropDown/CustomDropDown';
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
 import { useFormLogic } from '../../Logic/FormLogic';
-import { emailRegex, usernameRules, loginMethods } from '../../Logic/ValidationRules';
+import { loginMethods, validateIdentifier } from '../../Logic/ValidationRules';
 import './ForgetPassword.css';
 
 const ForgetPassword = () => {
@@ -15,28 +15,12 @@ const ForgetPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let hasError = false;
     
-    if (!formData.identifier.trim()) {
-      setErrors({ identifier: `Please enter your ${loginMethods.find(m => m.value === formData.method).label}` });
-      hasError = true;
-    } else {
-      if (formData.method === 'phone' && formData.identifier.length !== 10) {
-        setErrors({ identifier: 'Phone number must be exactly 10 digits' });
-        hasError = true;
-      } else if (formData.method === 'mail' && !emailRegex.test(formData.identifier)) {
-        setErrors({ identifier: 'Valid email format required' });
-        hasError = true;
-      } else if (formData.method === 'username') {
-        const usernameValid = usernameRules.every(rule => rule.test(formData.identifier));
-        if (!usernameValid) {
-          setErrors({ identifier: 'Please satisfy all username rules' });
-          hasError = true;
-        }
-      }
+    const identifierError = validateIdentifier(formData.method, formData.identifier);
+    if (identifierError) {
+      setErrors({ identifier: identifierError });
+      return;
     }
-    
-    if (hasError) return;
     setErrors({});
     setIsLoading(true);
     setTimeout(() => {

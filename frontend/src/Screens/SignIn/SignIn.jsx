@@ -5,7 +5,7 @@ import SubmitButton from '../../Components/Submit_Button/SubmitButton';
 import CustomDropDown from '../../Components/CustomDropDown/CustomDropDown';
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
 import { useFormLogic } from '../../Logic/FormLogic';
-import { emailRegex, usernameRules, loginMethods } from '../../Logic/ValidationRules';
+import { loginMethods, validateIdentifier } from '../../Logic/ValidationRules';
 import './SignIn.css';
 
 const SignIn = () => {
@@ -19,18 +19,8 @@ const SignIn = () => {
     e.preventDefault();
     const newErrors = {};
     
-    if (!formData.identifier.trim()) {
-      newErrors.identifier = `Please enter your ${loginMethods.find(m => m.value === formData.method).label}`;
-    } else {
-      if (formData.method === 'phone' && formData.identifier.length !== 10) {
-        newErrors.identifier = 'Phone number must be exactly 10 digits';
-      } else if (formData.method === 'mail' && !emailRegex.test(formData.identifier)) {
-        newErrors.identifier = 'Valid email format required';
-      } else if (formData.method === 'username') {
-        const usernameValid = usernameRules.every(rule => rule.test(formData.identifier));
-        if (!usernameValid) newErrors.identifier = 'Please satisfy all username rules';
-      }
-    }
+    const identifierError = validateIdentifier(formData.method, formData.identifier);
+    if (identifierError) newErrors.identifier = identifierError;
     
     if (!formData.password.trim()) newErrors.password = 'Please enter your password';
     

@@ -3,8 +3,8 @@ import InputField from '../../Components/Input_Field/InputField';
 import SubmitButton from '../../Components/Submit_Button/SubmitButton';
 import PasswordCriteria from '../../Components/Password_Criteria/PasswordCriteria';
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
-import { useFormLogic, validateSignUp } from '../../Logic/FormLogic';
-import { passwordRules, usernameRules, emailRegex } from '../../Logic/ValidationRules';
+import { useFormLogic } from '../../Logic/FormLogic';
+import { passwordRules, usernameRules, validateSignUp } from '../../Logic/ValidationRules';
 
 const SignUp = () => {
   const { formData, errors, isLoading, handleChange, processSubmit } = useFormLogic({
@@ -22,7 +22,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     processSubmit(e, () => {
-      const { isValid, newErrors, showUsernameRules, showPasswordRules } = validateSignUp(formData, { usernameRules, passwordRules, emailRegex });
+      const { isValid, newErrors, showUsernameRules, showPasswordRules } = validateSignUp(formData);
       if (showUsernameRules) setShowUsernameRules(true);
       if (showPasswordRules) setShowPasswordRules(true);
       return { isValid, newErrors };

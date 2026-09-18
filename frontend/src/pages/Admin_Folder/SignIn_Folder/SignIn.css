@@ -1,0 +1,105 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  background: var(--bg-card);
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-sizing: border-box;
+  animation: cardEntrance 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary-violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-weight: 500;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.forgot-password-link {
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.forgot-password-link:hover {
+  color: var(--color-primary-hover);
+  text-shadow: 0 0 8px var(--color-primary-glow);
+}
+
+.auth-footer {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.signup-link {
+  color: var(--color-secondary-pink);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+
+.signup-link:hover {
+  color: var(--color-secondary-violet);
+  text-decoration: underline;
+}
+
+.method-animation-wrapper {
+  animation: fadeSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

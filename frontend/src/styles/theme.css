@@ -1,0 +1,88 @@
+/* theme.css */
+:root {
+  /* Premium Light Theme */
+  --color-primary: #4f46e5; /* Indigo/Blue vibrant */
+  --color-primary-hover: #4338ca;
+  --color-primary-glow: rgba(79, 70, 229, 0.5);
+  
+  --color-secondary-green: #10b981; 
+  --color-secondary-violet: #8b5cf6; 
+  --color-secondary-pink: #ec4899; 
+
+  /* Dynamic Gradient Backgrounds */
+  --bg-gradient-start: #e0e7ff;
+  --bg-gradient-mid: #f3e8ff;
+  --bg-gradient-end: #fae8ff;
+  
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-input: rgba(255, 255, 255, 0.9);
+  --bg-input-focus: #ffffff;
+  
+  --text-main: #1e1b4b;
+  --text-muted: #6b7280;
+  --border-color: rgba(255, 255, 255, 0.5);
+  --border-focus: var(--color-primary);
+  
+  --error-color: #ef4444;
+  
+  --shadow-card: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  --shadow-input: 0 2px 4px rgba(0,0,0,0.02);
+  --shadow-button: 0 4px 14px 0 var(--color-primary-glow);
+}
+
+[data-theme='dark'] {
+  /* Premium Dark Theme (to be used later) */
+  --color-primary: #6366f1; 
+  --color-primary-hover: #818cf8;
+  --color-primary-glow: rgba(99, 102, 241, 0.5);
+  
+  --color-secondary-green: #34d399;
+  --color-secondary-violet: #a78bfa;
+  --color-secondary-pink: #f472b6;
+  
+  --bg-gradient-start: #0f172a;
+  --bg-gradient-mid: #1e1b4b;
+  --bg-gradient-end: #312e81;
+  
+  --bg-card: rgba(15, 23, 42, 0.6);
+  --bg-input: rgba(30, 41, 59, 0.7);
+  --bg-input-focus: rgba(30, 41, 59, 0.9);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-focus: var(--color-primary);
+  
+  --error-color: #f87171;
+  
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Global resets for highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: var(--color-secondary-violet);
+  color: white;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

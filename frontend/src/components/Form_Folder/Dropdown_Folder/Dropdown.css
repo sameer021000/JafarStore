@@ -1,0 +1,119 @@
+.dropdown-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+  width: 100%;
+  position: relative;
+}
+
+.dropdown-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--text-main);
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+.dropdown-field {
+  width: 100%;
+  padding: 0 1rem;
+  height: 3.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-input);
+  color: var(--text-main);
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 400;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-input);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdown-field:hover {
+  background-color: var(--bg-input-focus);
+}
+
+.dropdown-field.is-open {
+  background-color: var(--bg-input-focus);
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 4px var(--color-primary-glow);
+}
+
+.dropdown-field:focus {
+  background-color: var(--bg-input-focus);
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 4px var(--color-primary-glow);
+}
+
+.dropdown-icon {
+  color: var(--color-primary);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.dropdown-group:focus-within .dropdown-label {
+  color: var(--color-primary);
+}
+
+.dropdown-field.dropdown-error {
+  border-color: var(--error-color);
+}
+
+/* Custom Dropdown Menu Options */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  overflow: hidden;
+  animation: menuFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-option {
+  padding: 0.875rem 1rem;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-option:hover {
+  background-color: rgba(79, 70, 229, 0.1); /* Subtle primary color tint */
+  color: var(--color-primary);
+}
+
+.dropdown-option.selected {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

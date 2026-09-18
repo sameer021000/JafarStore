@@ -5,14 +5,8 @@ import SubmitButton from '../../Components/Submit_Button/SubmitButton';
 import CustomDropDown from '../../Components/CustomDropDown/CustomDropDown';
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
 import { useFormLogic } from '../../Logic/FormLogic';
-import { emailRegex, usernameRules } from '../../Logic/ValidationRules';
+import { emailRegex, usernameRules, loginMethods } from '../../Logic/ValidationRules';
 import './SignIn.css';
-
-const loginMethods = [
-  { label: 'Username', value: 'username' },
-  { label: 'Phone Number', value: 'phone' },
-  { label: 'Mail ID', value: 'mail' },
-];
 
 const SignIn = () => {
   const { formData, setFormData, errors, setErrors, isLoading, setIsLoading, handleChange } = useFormLogic({

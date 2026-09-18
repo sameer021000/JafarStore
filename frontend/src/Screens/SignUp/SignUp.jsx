@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import InputField from '../../Components/Input_Field/InputField';
 import SubmitButton from '../../Components/Submit_Button/SubmitButton';
 import PasswordCriteria from '../../Components/Password_Criteria/PasswordCriteria';
@@ -8,7 +7,7 @@ import { useFormLogic, validateSignUp } from '../../Logic/FormLogic';
 import { passwordRules, usernameRules, emailRegex } from '../../Logic/ValidationRules';
 
 const SignUp = () => {
-  const { formData, errors, setErrors, isLoading, handleChange, processSubmit } = useFormLogic({
+  const { formData, errors, isLoading, handleChange, processSubmit } = useFormLogic({
     firstName: '',
     lastName: '',
     phone: '', 

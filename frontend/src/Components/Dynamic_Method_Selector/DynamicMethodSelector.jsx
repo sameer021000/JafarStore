@@ -4,17 +4,14 @@ import InputField from '../Input_Field/InputField';
 import { loginMethods } from './MethodSelectorConstants';
 import './DynamicMethodSelector.css';
 
-const DynamicMethodSelector = ({ label, formData, setFormData, setErrors, handleChange, errors }) => {
+const DynamicMethodSelector = ({ label, formData, handleChange, errors }) => {
   return (
     <div className="method-animation-wrapper">
       <CustomDropDown
         label={label}
         name="method"
         value={formData.method}
-        onChange={(e) => {
-          setFormData(prev => ({ ...prev, method: e.target.value, identifier: '' }));
-          setErrors({});
-        }}
+        onChange={handleChange}
         options={loginMethods}
       />
       

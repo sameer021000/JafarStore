@@ -8,7 +8,7 @@ import { useFormLogic } from '../../Logic/FormLogic';
 import { validateIdentifier } from '../../Logic/ValidationRules';
 
 const SignIn = () => {
-  const { formData, setFormData, errors, setErrors, isLoading, handleChange, processSubmit } = useFormLogic({
+  const { formData, errors, isLoading, handleChange, processSubmit } = useFormLogic({
     method: 'username',
     identifier: '',
     password: ''
@@ -38,8 +38,6 @@ const SignIn = () => {
           <DynamicMethodSelector 
             label="Login Method"
             formData={formData}
-            setFormData={setFormData}
-            setErrors={setErrors}
             handleChange={handleChange}
             errors={errors}
           />

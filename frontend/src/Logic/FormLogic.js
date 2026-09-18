@@ -15,9 +15,17 @@ export const useFormLogic = (initialState) => {
       if (processedValue === formData[name]) return;
     }
     
-    setFormData((prev) => ({ ...prev, [name]: processedValue }));
+    setFormData((prev) => {
+      const newData = { ...prev, [name]: processedValue };
+      if (name === 'method') {
+        newData.identifier = '';
+      }
+      return newData;
+    });
     
-    if (errors[name]) {
+    if (name === 'method') {
+      setErrors({});
+    } else if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };

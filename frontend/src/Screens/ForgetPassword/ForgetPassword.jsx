@@ -6,7 +6,7 @@ import { useFormLogic } from '../../Logic/FormLogic';
 import { validateIdentifier } from '../../Logic/ValidationRules';
 
 const ForgetPassword = () => {
-  const { formData, setFormData, errors, setErrors, isLoading, handleChange, processSubmit } = useFormLogic({
+  const { formData, errors, isLoading, handleChange, processSubmit } = useFormLogic({
     method: 'username',
     identifier: ''
   });
@@ -33,10 +33,8 @@ const ForgetPassword = () => {
     >
       <form onSubmit={handleSubmit} className="auth-form" noValidate>
           <DynamicMethodSelector 
-            label="Verification Method"
+            label="Reset Method"
             formData={formData}
-            setFormData={setFormData}
-            setErrors={setErrors}
             handleChange={handleChange}
             errors={errors}
           />

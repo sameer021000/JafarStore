@@ -1,3 +1,5 @@
+import { loginMethods } from '../Components/CustomDropDown/DropdownConstants';
+
 export const passwordRules = [
   { id: 'length', label: '8-15 characters', test: (val) => val.length >= 8 && val.length <= 15 },
   { id: 'upper', label: 'One uppercase letter', test: (val) => /[A-Z]/.test(val) },
@@ -14,8 +16,6 @@ export const usernameRules = [
 ];
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-import { loginMethods } from '../Components/CustomDropDown/DropdownConstants';
 
 export const validateIdentifier = (method, identifier) => {
   if (!identifier.trim()) return `Please enter your ${loginMethods.find(m => m.value === method).label}`;

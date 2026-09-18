@@ -1,10 +1,9 @@
 import React from 'react';
-import InputField from '../../Components/Input_Field/InputField';
 import SubmitButton from '../../Components/Submit_Button/SubmitButton';
-import CustomDropDown from '../../Components/CustomDropDown/CustomDropDown';
+import { DynamicMethodSelector } from '../../Components/CustomDropDown/CustomDropDown';
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
 import { useFormLogic } from '../../Logic/FormLogic';
-import { loginMethods, validateIdentifier } from '../../Logic/ValidationRules';
+import { validateIdentifier } from '../../Logic/ValidationRules';
 import './ForgetPassword.css';
 
 const ForgetPassword = () => {
@@ -38,33 +37,13 @@ const ForgetPassword = () => {
       footerLinkTo="/signin"
     >
       <form onSubmit={handleSubmit} className="auth-form" noValidate>
-          <CustomDropDown
+          <DynamicMethodSelector 
             label="Verification Method"
-            name="method"
-            value={formData.method}
-            onChange={(e) => {
-              setFormData(prev => ({ ...prev, method: e.target.value, identifier: '' }));
-              setErrors({});
-            }}
-            options={loginMethods}
-          />
-          
-          <InputField
-            label={loginMethods.find(m => m.value === formData.method)?.label}
-            name="identifier"
-            type={formData.method === 'mail' ? 'email' : 'text'}
-            value={formData.identifier}
-            onChange={(e) => {
-              if (formData.method === 'phone') {
-                const processed = e.target.value.replace(/[^0-9]/g, '');
-                if (processed.length > 10) return;
-                e.target.value = processed;
-              }
-              handleChange(e);
-            }}
-            placeholder={`Enter your ${loginMethods.find(m => m.value === formData.method)?.label}`}
-            prefix={formData.method === 'phone' ? '+91' : undefined}
-            error={errors.identifier}
+            formData={formData}
+            setFormData={setFormData}
+            setErrors={setErrors}
+            handleChange={handleChange}
+            errors={errors}
           />
           
           <SubmitButton type="submit" className="mt-4" isLoading={isLoading}>Reset Password</SubmitButton>

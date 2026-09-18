@@ -6,8 +6,6 @@ import ForgetPassword from './pages/Admin_Folder/ForgetPassword_Folder/ForgetPas
 import './App.css';
 
 function App() {
-  // Theme logic will be moved to after-login dashboard later.
-  // For now, ensuring default theme is applied.
   useEffect(() => {
     document.documentElement.removeAttribute('data-theme');
   }, []);

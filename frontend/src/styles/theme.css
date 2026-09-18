@@ -58,31 +58,4 @@
   --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
 
-/* Global resets for highlight */
-* {
-  -webkit-tap-highlight-color: transparent;
-  box-sizing: border-box;
-}
 
-::selection {
-  background-color: var(--color-secondary-violet);
-  color: white;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
-
-body {
-  margin: 0;
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
-  background-size: 200% 200%;
-  animation: gradientShift 15s ease infinite;
-  color: var(--text-main);
-  min-height: 100vh;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}

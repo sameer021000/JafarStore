@@ -9,7 +9,7 @@ export const useFormLogic = (initialState) => {
     const { name, value } = e.target;
     
     let processedValue = value;
-    if (name === 'phone') {
+    if (name === 'phone' || (name === 'identifier' && formData.method === 'phone')) {
       processedValue = value.replace(/[^0-9]/g, '');
       if (processedValue.length > 10) return;
       if (processedValue === formData[name]) return;

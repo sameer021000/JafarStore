@@ -23,14 +23,7 @@ const DynamicMethodSelector = ({ label, formData, setFormData, setErrors, handle
         name="identifier"
         type={formData.method === 'mail' ? 'email' : 'text'}
         value={formData.identifier}
-        onChange={(e) => {
-          if (formData.method === 'phone') {
-            const processed = e.target.value.replace(/[^0-9]/g, '');
-            if (processed.length > 10) return;
-            e.target.value = processed;
-          }
-          handleChange(e);
-        }}
+        onChange={handleChange}
         placeholder={`Enter your ${loginMethods.find(m => m.value === formData.method)?.label}`}
         prefix={formData.method === 'phone' ? '+91' : undefined}
         error={errors.identifier}

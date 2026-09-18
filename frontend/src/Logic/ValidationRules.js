@@ -15,11 +15,7 @@ export const usernameRules = [
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const loginMethods = [
-  { label: 'Username', value: 'username' },
-  { label: 'Phone Number', value: 'phone' },
-  { label: 'Mail ID', value: 'mail' },
-];
+import { loginMethods } from '../Components/CustomDropDown/DropdownConstants';
 
 export const validateIdentifier = (method, identifier) => {
   if (!identifier.trim()) return `Please enter your ${loginMethods.find(m => m.value === method).label}`;

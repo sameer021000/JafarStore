@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import InputField from '../Input_Field/InputField';
-import { loginMethods } from '../../Logic/ValidationRules';
+import { loginMethods } from './DropdownConstants';
 import './CustomDropDown.css';
 
 const CustomDropDown = ({ label, name, value, onChange, options, error, ...props }) => {

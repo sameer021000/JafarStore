@@ -46,7 +46,6 @@ export const useFormLogic = (initialState) => {
     errors,
     setErrors,
     isLoading,
-    setIsLoading,
     handleChange,
     processSubmit
   };

@@ -15,7 +15,7 @@ export const usernameRules = [
   { id: 'format', label: 'Only letters and numbers', test: (val) => /^[a-zA-Z0-9]+$/.test(val) },
 ];
 
-export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const validateIdentifier = (method, identifier) => {
   if (!identifier.trim()) return `Please enter your ${loginMethods.find(m => m.value === method).label}`;

@@ -1,4 +1,4 @@
-import { loginMethods } from '../Components/CustomDropDown/DropdownConstants';
+import { loginMethods } from '../Components/Dynamic_Method_Selector/MethodSelectorConstants';
 
 export const passwordRules = [
   { id: 'length', label: '8-15 characters', test: (val) => val.length >= 8 && val.length <= 15 },

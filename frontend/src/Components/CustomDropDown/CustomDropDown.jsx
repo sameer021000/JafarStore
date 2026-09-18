@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import InputField from '../Input_Field/InputField';
-import { loginMethods } from './DropdownConstants';
 import './CustomDropDown.css';
 
 const CustomDropDown = ({ label, name, value, onChange, options, error, ...props }) => {
@@ -56,38 +55,3 @@ const CustomDropDown = ({ label, name, value, onChange, options, error, ...props
 };
 
 export default CustomDropDown;
-
-export const DynamicMethodSelector = ({ label, formData, setFormData, setErrors, handleChange, errors }) => {
-  return (
-    <div className="method-animation-wrapper">
-      <CustomDropDown
-        label={label}
-        name="method"
-        value={formData.method}
-        onChange={(e) => {
-          setFormData(prev => ({ ...prev, method: e.target.value, identifier: '' }));
-          setErrors({});
-        }}
-        options={loginMethods}
-      />
-      
-      <InputField
-        label={loginMethods.find(m => m.value === formData.method)?.label}
-        name="identifier"
-        type={formData.method === 'mail' ? 'email' : 'text'}
-        value={formData.identifier}
-        onChange={(e) => {
-          if (formData.method === 'phone') {
-            const processed = e.target.value.replace(/[^0-9]/g, '');
-            if (processed.length > 10) return;
-            e.target.value = processed;
-          }
-          handleChange(e);
-        }}
-        placeholder={`Enter your ${loginMethods.find(m => m.value === formData.method)?.label}`}
-        prefix={formData.method === 'phone' ? '+91' : undefined}
-        error={errors.identifier}
-      />
-    </div>
-  );
-};

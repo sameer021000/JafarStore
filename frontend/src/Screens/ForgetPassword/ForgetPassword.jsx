@@ -1,6 +1,6 @@
 import React from 'react';
 import SubmitButton from '../../Components/Submit_Button/SubmitButton';
-import { DynamicMethodSelector } from '../../Components/CustomDropDown/CustomDropDown';
+import DynamicMethodSelector from '../../Components/Dynamic_Method_Selector/DynamicMethodSelector';
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
 import { useFormLogic } from '../../Logic/FormLogic';
 import { validateIdentifier } from '../../Logic/ValidationRules';

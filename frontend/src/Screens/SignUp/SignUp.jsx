@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, X } from 'lucide-react';
-import Input from '../../../components/Form_Folder/Input_Folder/Input';
-import SubmitButton from '../../../components/Form_Folder/Button_Folder/SubmitButton';
+import InputField from '../../Components/Input_Field/InputField';
+import SubmitButton from '../../Components/Submit_Button/SubmitButton';
+import PasswordCriteria from '../../Components/Password_Criteria/PasswordCriteria';
+import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
+import { useFormLogic } from '../../Logic/FormLogic';
+import { passwordRules, usernameRules, emailRegex } from '../../Logic/ValidationRules';
 import './SignUp.css';
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
+  const { formData, errors, setErrors, isLoading, setIsLoading, handleChange } = useFormLogic({
     firstName: '',
     lastName: '',
     phone: '', 
@@ -16,25 +19,8 @@ const SignUp = () => {
     confirmPassword: '',
   });
 
-  const [errors, setErrors] = useState({});
   const [showPasswordRules, setShowPasswordRules] = useState(false);
   const [showUsernameRules, setShowUsernameRules] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const passwordRules = [
-    { id: 'length', label: '8-15 characters', test: (val) => val.length >= 8 && val.length <= 15 },
-    { id: 'upper', label: 'One uppercase letter', test: (val) => /[A-Z]/.test(val) },
-    { id: 'lower', label: 'One lowercase letter', test: (val) => /[a-z]/.test(val) },
-    { id: 'num', label: 'One number', test: (val) => /\d/.test(val) },
-    { id: 'special', label: 'One special character', test: (val) => /[@$!%*?&]/.test(val) },
-  ];
-
-  const usernameRules = [
-    { id: 'length', label: '6-10 characters', test: (val) => val.length >= 6 && val.length <= 10 },
-    { id: 'alpha', label: 'At least one letter', test: (val) => /[a-zA-Z]/.test(val) },
-    { id: 'num', label: 'At least one number', test: (val) => /\d/.test(val) },
-    { id: 'format', label: 'Only letters and numbers', test: (val) => /^[a-zA-Z0-9]+$/.test(val) },
-  ];
 
   const validate = () => {
     const newErrors = {};
@@ -71,23 +57,6 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    
-    let processedValue = value;
-    if (name === 'phone') {
-      processedValue = value.replace(/[^0-9]/g, '');
-      if (processedValue.length > 10) return;
-      if (processedValue === formData.phone) return; // Prevent clearing error if non-numeric typed
-    }
-    
-    setFormData({ ...formData, [name]: processedValue });
-    
-    if (errors[name]) {
-      setErrors({ ...errors, [name]: '' });
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
@@ -100,14 +69,16 @@ const SignUp = () => {
   };
 
   return (
-    <div className="auth-container signup-container">
-      <div className="auth-card signup-card">
-        <h2 className="auth-title">Create Admin Account</h2>
-        <p className="auth-subtitle">Fill in the details to get started</p>
-        
-        <form onSubmit={handleSubmit} className="auth-form signup-form" noValidate>
-          <div className="form-row">
-            <Input
+    <SharedScreenDesign 
+      title="Create Admin Account" 
+      subtitle="Fill in the details to get started"
+      footerText="Already have an account?"
+      footerLinkText="Sign In"
+      footerLinkTo="/signin"
+    >
+      <form onSubmit={handleSubmit} className="auth-form signup-form" noValidate>
+        <div className="form-row">
+          <InputField
               label="First Name"
               name="firstName"
               value={formData.firstName}
@@ -115,7 +86,7 @@ const SignUp = () => {
               error={errors.firstName}
               placeholder="John"
             />
-            <Input
+            <InputField
               label="Last Name"
               name="lastName"
               value={formData.lastName}
@@ -125,7 +96,7 @@ const SignUp = () => {
             />
           </div>
           
-          <Input
+          <InputField
             label="Phone Number"
             name="phone"
             value={formData.phone}
@@ -135,7 +106,7 @@ const SignUp = () => {
             prefix="+91"
           />
           
-          <Input
+          <InputField
             label="Email Address"
             name="email"
             type="email"
@@ -146,7 +117,7 @@ const SignUp = () => {
           />
           
           <div className="input-section">
-            <Input
+            <InputField
               label="Username"
               name="username"
               value={formData.username}
@@ -160,19 +131,12 @@ const SignUp = () => {
             />
             
             {showUsernameRules && (
-              <div className="validation-checklist">
-                {usernameRules.map(rule => (
-                  <div key={rule.id} className={`checklist-item ${rule.test(formData.username) ? 'valid' : 'invalid'}`}>
-                    {rule.test(formData.username) ? <Check size={14} /> : <X size={14} />}
-                    <span>{rule.label}</span>
-                  </div>
-                ))}
-              </div>
+              <PasswordCriteria value={formData.username} rules={usernameRules} />
             )}
           </div>
           
           <div className="input-section">
-            <Input
+            <InputField
               label="Password"
               name="password"
               value={formData.password}
@@ -187,18 +151,11 @@ const SignUp = () => {
               defaultVisible={true}
             />
             {showPasswordRules && (
-              <div className="validation-checklist">
-                {passwordRules.map(rule => (
-                  <div key={rule.id} className={`checklist-item ${rule.test(formData.password) ? 'valid' : 'invalid'}`}>
-                    {rule.test(formData.password) ? <Check size={14} /> : <X size={14} />}
-                    <span>{rule.label}</span>
-                  </div>
-                ))}
-              </div>
+              <PasswordCriteria value={formData.password} rules={passwordRules} />
             )}
           </div>
           
-          <Input
+          <InputField
             label="Confirm Password"
             name="confirmPassword"
             value={formData.confirmPassword}
@@ -210,13 +167,8 @@ const SignUp = () => {
           />
           
           <SubmitButton type="submit" className="mt-4" isLoading={isLoading}>Sign Up</SubmitButton>
-        </form>
-        
-        <p className="auth-footer">
-          Already have an account? <Link to="/signin" className="signin-link">Sign In</Link>
-        </p>
-      </div>
-    </div>
+      </form>
+    </SharedScreenDesign>
   );
 };
 

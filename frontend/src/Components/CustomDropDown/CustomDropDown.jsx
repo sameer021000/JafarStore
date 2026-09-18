@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
-import './Dropdown.css';
+import './CustomDropDown.css';
 
-const Dropdown = ({ label, name, value, onChange, options, error, ...props }) => {
+const CustomDropDown = ({ label, name, value, onChange, options, error, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Handle outside click to close
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -27,7 +26,6 @@ const Dropdown = ({ label, name, value, onChange, options, error, ...props }) =>
   return (
     <div className="dropdown-group" ref={dropdownRef}>
       {label && <label className="dropdown-label">{label}</label>}
-      
       <div 
         className={`dropdown-field ${isOpen ? 'is-open' : ''} ${error ? 'dropdown-error' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
@@ -37,7 +35,6 @@ const Dropdown = ({ label, name, value, onChange, options, error, ...props }) =>
         <span className="dropdown-selected">{selectedOption ? selectedOption.label : 'Select...'}</span>
         <ChevronDown size={18} className={`dropdown-icon ${isOpen ? 'rotated' : ''}`} />
       </div>
-      
       {isOpen && (
         <div className="dropdown-menu">
           {options.map((opt) => (
@@ -51,10 +48,9 @@ const Dropdown = ({ label, name, value, onChange, options, error, ...props }) =>
           ))}
         </div>
       )}
-      
       {error && <span className="error-message">{error}</span>}
     </div>
   );
 };
 
-export default Dropdown;
+export default CustomDropDown;

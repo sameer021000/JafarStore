@@ -1,3 +1,4 @@
+/* Core Auth Layout */
 .auth-container {
   min-height: 100vh;
   display: flex;
@@ -55,10 +56,6 @@
   flex-direction: column;
 }
 
-.mt-4 {
-  margin-top: 1.5rem;
-}
-
 .auth-footer {
   margin-top: 2.5rem;
   text-align: center;
@@ -67,6 +64,7 @@
   font-weight: 500;
 }
 
+/* Auth Links */
 .signin-link {
   color: var(--color-primary);
   text-decoration: none;
@@ -79,11 +77,34 @@
   text-decoration: underline;
 }
 
-.method-animation-wrapper {
-  animation: fadeSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.signup-link {
+  color: var(--color-secondary-pink);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s;
 }
 
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.signup-link:hover {
+  color: var(--color-secondary-violet);
+  text-decoration: underline;
+}
+
+/* Form Row Alignment */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 }

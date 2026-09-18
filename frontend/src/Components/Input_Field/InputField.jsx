@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, AlertCircle } from 'lucide-react';
-import './Input.css';
+import './InputField.css';
 
 const Input = ({ label, type = 'text', name, value, onChange, error, placeholder, prefix, isPassword, defaultVisible = false, ...props }) => {
   const [isVisible, setIsVisible] = useState(defaultVisible);

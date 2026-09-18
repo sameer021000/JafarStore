@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import SignIn from './pages/Admin_Folder/SignIn_Folder/SignIn';
-import SignUp from './pages/Admin_Folder/SignUp_Folder/SignUp';
-import ForgetPassword from './pages/Admin_Folder/ForgetPassword_Folder/ForgetPassword';
+import SignIn from './Screens/SignIn/SignIn';
+import SignUp from './Screens/SignUp/SignUp';
+import ForgetPassword from './Screens/ForgetPassword/ForgetPassword';
 import './App.css';
 
 function App() {

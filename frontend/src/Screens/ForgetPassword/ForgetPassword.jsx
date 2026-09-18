@@ -4,28 +4,23 @@ import { DynamicMethodSelector } from '../../Components/CustomDropDown/CustomDro
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
 import { useFormLogic } from '../../Logic/FormLogic';
 import { validateIdentifier } from '../../Logic/ValidationRules';
-import './ForgetPassword.css';
 
 const ForgetPassword = () => {
-  const { formData, setFormData, errors, setErrors, isLoading, setIsLoading, handleChange } = useFormLogic({
+  const { formData, setFormData, errors, setErrors, isLoading, handleChange, processSubmit } = useFormLogic({
     method: 'username',
     identifier: ''
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    const identifierError = validateIdentifier(formData.method, formData.identifier);
-    if (identifierError) {
-      setErrors({ identifier: identifierError });
-      return;
-    }
-    setErrors({});
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+    processSubmit(e, () => {
+      const identifierError = validateIdentifier(formData.method, formData.identifier);
+      return { 
+        isValid: !identifierError, 
+        newErrors: identifierError ? { identifier: identifierError } : {} 
+      };
+    }, () => {
       console.log('Password reset request for:', { method: formData.method, value: formData.identifier });
-    }, 1500);
+    });
   };
 
   return (

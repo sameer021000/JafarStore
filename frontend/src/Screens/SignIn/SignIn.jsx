@@ -6,35 +6,24 @@ import { DynamicMethodSelector } from '../../Components/CustomDropDown/CustomDro
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
 import { useFormLogic } from '../../Logic/FormLogic';
 import { validateIdentifier } from '../../Logic/ValidationRules';
-import './SignIn.css';
 
 const SignIn = () => {
-  const { formData, setFormData, errors, setErrors, isLoading, setIsLoading, handleChange } = useFormLogic({
+  const { formData, setFormData, errors, setErrors, isLoading, handleChange, processSubmit } = useFormLogic({
     method: 'username',
     identifier: '',
     password: ''
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = {};
-    
-    const identifierError = validateIdentifier(formData.method, formData.identifier);
-    if (identifierError) newErrors.identifier = identifierError;
-    
-    if (!formData.password.trim()) newErrors.password = 'Please enter your password';
-    
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-    
-    setErrors({});
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+    processSubmit(e, () => {
+      const newErrors = {};
+      const identifierError = validateIdentifier(formData.method, formData.identifier);
+      if (identifierError) newErrors.identifier = identifierError;
+      if (!formData.password.trim()) newErrors.password = 'Please enter your password';
+      return { isValid: Object.keys(newErrors).length === 0, newErrors };
+    }, () => {
       console.log('Login attempt:', { method: formData.method, value: formData.identifier });
-    }, 1500);
+    });
   };
 
   return (

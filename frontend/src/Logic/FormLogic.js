@@ -22,6 +22,24 @@ export const useFormLogic = (initialState) => {
     }
   };
 
+  const processSubmit = (e, validationFn, successCallback) => {
+    e.preventDefault();
+    const { isValid, newErrors } = validationFn();
+    
+    if (!isValid) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    setErrors({});
+    setIsLoading(true);
+    
+    setTimeout(() => {
+      setIsLoading(false);
+      successCallback();
+    }, 1500);
+  };
+
   return {
     formData,
     setFormData,
@@ -29,7 +47,8 @@ export const useFormLogic = (initialState) => {
     setErrors,
     isLoading,
     setIsLoading,
-    handleChange
+    handleChange,
+    processSubmit
   };
 };
 

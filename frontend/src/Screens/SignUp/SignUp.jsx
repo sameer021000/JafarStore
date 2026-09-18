@@ -6,10 +6,9 @@ import PasswordCriteria from '../../Components/Password_Criteria/PasswordCriteri
 import SharedScreenDesign from '../../Components/Shared_Screen_Design/SharedScreenDesign';
 import { useFormLogic, validateSignUp } from '../../Logic/FormLogic';
 import { passwordRules, usernameRules, emailRegex } from '../../Logic/ValidationRules';
-import './SignUp.css';
 
 const SignUp = () => {
-  const { formData, errors, setErrors, isLoading, setIsLoading, handleChange } = useFormLogic({
+  const { formData, errors, setErrors, isLoading, handleChange, processSubmit } = useFormLogic({
     firstName: '',
     lastName: '',
     phone: '', 
@@ -22,23 +21,15 @@ const SignUp = () => {
   const [showPasswordRules, setShowPasswordRules] = useState(false);
   const [showUsernameRules, setShowUsernameRules] = useState(false);
 
-  const validate = () => {
-    const { isValid, newErrors, showUsernameRules, showPasswordRules } = validateSignUp(formData, { usernameRules, passwordRules, emailRegex });
-    setErrors(newErrors);
-    if (showUsernameRules) setShowUsernameRules(true);
-    if (showPasswordRules) setShowPasswordRules(true);
-    return isValid;
-  };
-
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate()) {
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        console.log('SignUp Data:', { ...formData, phone: '+91' + formData.phone });
-      }, 1500); // Simulate network request
-    }
+    processSubmit(e, () => {
+      const { isValid, newErrors, showUsernameRules, showPasswordRules } = validateSignUp(formData, { usernameRules, passwordRules, emailRegex });
+      if (showUsernameRules) setShowUsernameRules(true);
+      if (showPasswordRules) setShowPasswordRules(true);
+      return { isValid, newErrors };
+    }, () => {
+      console.log('SignUp Data:', { ...formData, phone: '+91' + formData.phone });
+    });
   };
 
   return (
